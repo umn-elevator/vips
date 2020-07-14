@@ -26,7 +26,7 @@ RUN     BUILD_PACKAGES='curl unzip make autoconf automake cmake g++ gcc build-es
         add-apt-repository ppa:strukturag/libheif && \
         apt-get -yqq update && \
         apt-get --no-install-recommends -yqq install $BUILD_PACKAGES && \
-        apt-get -y install --no-install-recommends wget libde265-dev libheif1 libheif-dev  libopenslide-dev libgsf-1-dev libopenjp2-7-dev libexpat1-dev libjbig-dev  zlib1g-dev libtiff5-dev libpng16-16 libpng-dev libjpeg-turbo8 libjpeg-turbo8-dev libjbig2dec0 libwebp6 libwebp-dev libgomp1 libwebpmux3 pkg-config libbz2-dev libxml2-dev ghostscript && \
+        apt-get -y install --no-install-recommends wget libde265-dev libheif1 libheif-dev libexif-dev libopenslide-dev libgsf-1-dev libopenjp2-7-dev libexpat1-dev libjbig-dev  zlib1g-dev libtiff5-dev libpng16-16 libpng-dev libjpeg-turbo8 libjpeg-turbo8-dev libjbig2dec0 libwebp6 libwebp-dev libgomp1 libwebpmux3 pkg-config libbz2-dev libxml2-dev ghostscript && \
         DIR=/tmp/imagemagick && \
         mkdir -p ${DIR} && \
         cd ${DIR} && \
@@ -56,7 +56,7 @@ RUN     apt-get -yqq update && \
         rm -rf /var/lib/apt/lists/*
 
 RUN     add-apt-repository ppa:strukturag/libheif && \
-        apt-get -y install --no-install-recommends libheif1 libopenjp2-7 libgsf-1-114  libjbig2dec0 libde265-0 libheif1 openslide-tools libpng16-16 libopenjp2-7 libjbig0 libtiff5 libjpeg-turbo8 libwebp6 libgomp1 libbz2-1.0 libwebpmux3 libwebp-dev libxml2-dev && \
+        apt-get -y install --no-install-recommends libheif1 libopenjp2-7 libgsf-1-114  libjbig2dec0 libexif-dev libde265-0 libheif1 openslide-tools libpng16-16 libopenjp2-7 libjbig0 libtiff5 libjpeg-turbo8 libwebp6 libgomp1 libbz2-1.0 libwebpmux3 libwebp-dev libxml2-dev && \
         rm -rf /var/lib/apt/lists/*
 
 COPY        --from=build /usr/local/bin /usr/local/bin

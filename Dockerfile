@@ -4,11 +4,6 @@ FROM        base as build
 
 WORKDIR     /tmp/workdir
 
-ARG DEBIAN_FRONTEND=noninteractive
-ARG VIPS_VERSION=8.9.2
-ARG VIPS_URL=https://github.com/libvips/libvips/releases/download
-
-
 RUN     apt-get -yqq update && \
         apt-get install -yqq --no-install-recommends ca-certificates && \
         rm -rf /var/lib/apt/lists/*
@@ -24,9 +19,10 @@ RUN     apt-get -yqq update && \
 
 RUN     BUILD_PACKAGES='curl unzip make autoconf automake cmake g++ gcc build-essential' && \
         add-apt-repository ppa:strukturag/libheif && \
+        add-apt-repository ppa:strukturag/libde265 && \
         apt-get -yqq update && \
         apt-get --no-install-recommends -yqq install $BUILD_PACKAGES && \
-        apt-get -y install --no-install-recommends wget libde265-dev libheif1 libheif-dev libexif-dev libopenslide-dev libgsf-1-dev libopenjp2-7-dev libexpat1-dev libjbig-dev  zlib1g-dev libtiff5-dev libpng16-16 libpng-dev libjpeg-turbo8 libjpeg-turbo8-dev libjbig2dec0 libwebp6 libwebp-dev libgomp1 libwebpmux3 pkg-config libbz2-dev libxml2-dev ghostscript && \
+        apt-get -y install --no-install-recommends wget libde265-0 libheif1 libheif-dev libexif-dev libopenslide-dev libgsf-1-dev libopenjp2-7-dev libexpat1-dev libjbig-dev  zlib1g-dev libtiff5-dev libpng16-16 libpng-dev libjpeg-turbo8 libjpeg-turbo8-dev libjbig2dec0 libwebp6 libwebp-dev libgomp1 libwebpmux3 pkg-config libbz2-dev libxml2-dev ghostscript && \
         DIR=/tmp/imagemagick && \
         mkdir -p ${DIR} && \
         cd ${DIR} && \
@@ -37,6 +33,10 @@ RUN     BUILD_PACKAGES='curl unzip make autoconf automake cmake g++ gcc build-es
         make -j4 && \
         make install && \
         rm -rf ${DIR}
+
+
+ARG VIPS_VERSION=8.10.6
+ARG VIPS_URL=https://github.com/libvips/libvips/releases/download
 
 
 RUN wget ${VIPS_URL}/v${VIPS_VERSION}/vips-${VIPS_VERSION}.tar.gz \
@@ -56,6 +56,7 @@ RUN     apt-get -yqq update && \
         rm -rf /var/lib/apt/lists/*
 
 RUN     add-apt-repository ppa:strukturag/libheif && \
+        add-apt-repository ppa:strukturag/libde265 && \
         apt-get -y install --no-install-recommends libheif1 libopenjp2-7 libgsf-1-114  libjbig2dec0 libexif-dev libde265-0 libheif1 openslide-tools libpng16-16 libopenjp2-7 libjbig0 libtiff5 libjpeg-turbo8 libwebp6 libgomp1 libbz2-1.0 libwebpmux3 libwebp-dev libxml2-dev && \
         rm -rf /var/lib/apt/lists/*
 
